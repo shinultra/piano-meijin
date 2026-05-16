@@ -1,0 +1,136 @@
+<svg width="1200" height="800" viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="sky8" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#5eb8e8"/>
+      <stop offset="55%" stop-color="#9ad2ef"/>
+      <stop offset="100%" stop-color="#dceffa"/>
+    </linearGradient>
+    <radialGradient id="sparkleHalo" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.85"/>
+      <stop offset="60%" stop-color="#ffffff" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="bellGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#fff5b0" stop-opacity="0.7"/>
+      <stop offset="100%" stop-color="#fff5b0" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="bellBody" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffdf5e"/>
+      <stop offset="100%" stop-color="#c89a35"/>
+    </linearGradient>
+    <linearGradient id="door" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ff9fc4"/>
+      <stop offset="100%" stop-color="#e85d96"/>
+    </linearGradient>
+    <path id="spark8" d="M0 -22 L5 -5 L22 0 L5 5 L0 22 L-5 5 L-22 0 L-5 -5 Z" fill="#ffffff"/>
+  </defs>
+
+  <rect width="1200" height="800" fill="url(#sky8)"/>
+
+  <!-- Rainbow arc -->
+  <g fill="none" stroke-width="16" opacity="0.55">
+    <path d="M-60 760 A 740 740 0 0 1 1260 760" stroke="#ff7a7a"/>
+    <path d="M-60 778 A 760 760 0 0 1 1260 778" stroke="#ffaa55"/>
+    <path d="M-60 796 A 780 780 0 0 1 1260 796" stroke="#ffe066"/>
+    <path d="M-60 814 A 800 800 0 0 1 1260 814" stroke="#88d18c"/>
+    <path d="M-60 832 A 820 820 0 0 1 1260 832" stroke="#7eb6e0"/>
+  </g>
+
+  <!-- Fluffy clouds -->
+  <g fill="#ffffff">
+    <ellipse cx="180" cy="200" rx="68" ry="24"/>
+    <circle cx="150" cy="190" r="26"/>
+    <circle cx="190" cy="178" r="34"/>
+    <circle cx="232" cy="194" r="28"/>
+
+    <ellipse cx="540" cy="140" rx="80" ry="26"/>
+    <circle cx="500" cy="130" r="28"/>
+    <circle cx="555" cy="118" r="38"/>
+    <circle cx="610" cy="138" r="30"/>
+
+    <ellipse cx="990" cy="260" rx="60" ry="22"/>
+    <circle cx="965" cy="252" r="26"/>
+    <circle cx="1010" cy="246" r="30"/>
+  </g>
+
+  <!-- Tiny sparkle stars -->
+  <g fill="#ffffff" opacity="0.85">
+    <circle cx="100" cy="90" r="2"/>
+    <circle cx="280" cy="60" r="2.5"/>
+    <circle cx="380" cy="120" r="2"/>
+    <circle cx="660" cy="60" r="2.5"/>
+    <circle cx="780" cy="180" r="2"/>
+    <circle cx="850" cy="100" r="2.5"/>
+    <circle cx="1100" cy="160" r="2"/>
+    <circle cx="120" cy="380" r="2"/>
+    <circle cx="320" cy="420" r="2.5"/>
+    <circle cx="940" cy="400" r="2"/>
+    <circle cx="1140" cy="440" r="2.5"/>
+  </g>
+
+  <!-- Floating "anywhere" doorway (generic pink door in the sky) -->
+  <g transform="translate(260 460)">
+    <!-- Door body -->
+    <rect x="-58" y="-130" width="116" height="180" rx="10" fill="url(#door)"/>
+    <!-- Door frame -->
+    <rect x="-58" y="-130" width="116" height="180" rx="10" fill="none" stroke="#ad3a6c" stroke-width="4"/>
+    <!-- Door panel divider -->
+    <line x1="-58" y1="-40" x2="58" y2="-40" stroke="#ad3a6c" stroke-width="3"/>
+    <!-- Handle -->
+    <circle cx="42" cy="0" r="6" fill="#fff7d6"/>
+    <circle cx="42" cy="0" r="3" fill="#c89a35"/>
+    <!-- Cloud base under door -->
+    <ellipse cx="0" cy="52" rx="78" ry="14" fill="#ffffff" opacity="0.95"/>
+    <ellipse cx="-30" cy="50" rx="30" ry="14" fill="#ffffff"/>
+    <ellipse cx="30" cy="50" rx="30" ry="14" fill="#ffffff"/>
+  </g>
+
+  <!-- Floating bell with red ribbon (generic) -->
+  <g transform="translate(880 380)">
+    <!-- Glow -->
+    <circle cx="0" cy="0" r="100" fill="url(#bellGlow)"/>
+    <!-- Ribbon -->
+    <path d="M-32 -50 Q-40 -78 -10 -68 Q 0 -54 0 -50 Q 0 -54 10 -68 Q 40 -78 32 -50 Z" fill="#ee4a5a"/>
+    <circle cx="0" cy="-48" r="6" fill="#c83040"/>
+    <!-- Bell body -->
+    <ellipse cx="0" cy="0" rx="42" ry="44" fill="url(#bellBody)"/>
+    <!-- Highlight -->
+    <ellipse cx="-12" cy="-10" rx="10" ry="16" fill="#fff5b0" opacity="0.7"/>
+    <!-- Bottom band -->
+    <rect x="-42" y="28" width="84" height="14" fill="#c89a35"/>
+    <!-- Slot/mouth -->
+    <rect x="-22" y="34" width="44" height="6" rx="2" fill="#5a3a18"/>
+    <!-- Ball at bottom -->
+    <circle cx="0" cy="48" r="6" fill="#c89a35"/>
+  </g>
+
+  <!-- Propeller flying gadget (generic, on a smaller cloud) -->
+  <g transform="translate(560 540)">
+    <!-- Cloud platform -->
+    <ellipse cx="0" cy="0" rx="60" ry="14" fill="#ffffff"/>
+    <ellipse cx="-22" cy="-3" rx="22" ry="14" fill="#ffffff"/>
+    <ellipse cx="22" cy="-3" rx="22" ry="14" fill="#ffffff"/>
+    <!-- Stand -->
+    <rect x="-3" y="-50" width="6" height="46" fill="#c89a35"/>
+    <!-- Propeller blades -->
+    <ellipse cx="-22" cy="-52" rx="26" ry="6" fill="#ffd166"/>
+    <ellipse cx="22" cy="-52" rx="26" ry="6" fill="#ffd166"/>
+    <!-- Center hub -->
+    <circle cx="0" cy="-52" r="6" fill="#c89a35"/>
+  </g>
+
+  <!-- Large sparkle stars -->
+  <g>
+    <circle cx="430" cy="320" r="50" fill="url(#sparkleHalo)"/>
+    <use href="#spark8" transform="translate(430 320) scale(1.1)"/>
+
+    <circle cx="740" cy="200" r="42" fill="url(#sparkleHalo)"/>
+    <use href="#spark8" transform="translate(740 200) scale(0.85)"/>
+
+    <circle cx="1060" cy="500" r="46" fill="url(#sparkleHalo)"/>
+    <use href="#spark8" transform="translate(1060 500) scale(0.95)"/>
+
+    <circle cx="160" cy="600" r="38" fill="url(#sparkleHalo)"/>
+    <use href="#spark8" transform="translate(160 600) scale(0.75)"/>
+  </g>
+</svg>
