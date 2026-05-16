@@ -231,6 +231,7 @@ function pressNote(key) {
   if (!target) {
     judgeText = 'Miss';
     judgeElement.textContent = judgeText;
+    showJudgmentEffect(key, 'Miss');
     return;
   }
   const currentTime = audioContext.currentTime - gameStartTime;
@@ -242,6 +243,27 @@ function pressNote(key) {
   } else {
     markMiss(target);
   }
+}
+
+function showJudgmentEffect(key, label) {
+  const colIndex = NOTE_KEYS.indexOf(key);
+  if (colIndex < 0) return;
+  const cssLabel = label.toLowerCase();
+
+  const keyButton = document.querySelector(`.key-button[data-key="${key}"]`);
+  if (keyButton) {
+    keyButton.classList.remove('flash-perfect', 'flash-good', 'flash-miss');
+    void keyButton.offsetWidth;
+    keyButton.classList.add(`flash-${cssLabel}`);
+    setTimeout(() => keyButton.classList.remove(`flash-${cssLabel}`), 420);
+  }
+
+  const effect = document.createElement('div');
+  effect.className = `judgment-effect judgment-${cssLabel}`;
+  effect.textContent = label;
+  effect.style.left = `${(colIndex + 0.5) * (100 / NOTE_KEYS.length)}%`;
+  noteTrack.appendChild(effect);
+  setTimeout(() => effect.remove(), 850);
 }
 
 function findClosestNoteForKey(key) {
@@ -267,6 +289,7 @@ function scoreHit(note, multiplier, label) {
   scoreValue.classList.toggle('passing', currentScore >= 60);
   judgeText = label;
   judgeElement.textContent = judgeText;
+  showJudgmentEffect(note.key, label);
 }
 
 function markMiss(note) {
@@ -276,6 +299,7 @@ function markMiss(note) {
   note.noteElement.style.transform += ' translateY(12px)';
   judgeText = 'Miss';
   judgeElement.textContent = judgeText;
+  showJudgmentEffect(note.key, 'Miss');
 }
 
 function scheduleSongEnd() {

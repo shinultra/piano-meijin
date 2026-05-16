@@ -98,8 +98,8 @@ const SONG_LIST = [
   },
   {
     id: 'song8',
-    title: '夢をかなえてドラえもん',
-    subtitle: 'ステージ 8（メロディは仮）',
+    title: 'そらいろの夢',
+    subtitle: 'ステージ 8',
     image: 'images/song8.svg',
     notes: [
       { key: '1', time: 0.5 },   { key: '3', time: 1.0 },   { key: '5', time: 1.5 },
@@ -114,8 +114,8 @@ const SONG_LIST = [
   },
   {
     id: 'song9',
-    title: 'ドラゴンクエスト 序曲',
-    subtitle: 'ステージ 9（メロディは仮）',
+    title: '勇者の序曲',
+    subtitle: 'ステージ 9',
     image: 'images/song9.svg',
     notes: [
       { key: '5', time: 0.5 },   { key: '8', time: 1.5 },   { key: '7', time: 2.25 },
