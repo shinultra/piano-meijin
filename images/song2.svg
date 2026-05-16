@@ -1,20 +1,137 @@
 <svg width="1200" height="800" viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#0f1f33"/>
-      <stop offset="100%" stop-color="#122d4d"/>
+    <linearGradient id="sky2" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#7ec1ee"/>
+      <stop offset="60%" stop-color="#bbdcf3"/>
+      <stop offset="100%" stop-color="#e5eef6"/>
     </linearGradient>
-    <radialGradient id="glow2" cx="30%" cy="20%" r="60%">
-      <stop offset="0%" stop-color="#ffdf90" stop-opacity="0.85"/>
-      <stop offset="100%" stop-color="#0c1325" stop-opacity="0"/>
+    <linearGradient id="grass" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#7ec06f"/>
+      <stop offset="100%" stop-color="#3f7634"/>
+    </linearGradient>
+    <radialGradient id="sun2Glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#fff7c4" stop-opacity="0.7"/>
+      <stop offset="60%" stop-color="#fff7c4" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#fff7c4" stop-opacity="0"/>
     </radialGradient>
   </defs>
-  <rect width="1200" height="800" fill="url(#grad2)"/>
-  <circle cx="320" cy="180" r="180" fill="url(#glow2)"/>
-  <path d="M0 720C180 550 340 560 520 460C680 360 840 400 980 520V820H0V720Z" fill="#273f6f" opacity="0.62"/>
-  <path d="M900 220C880 150 820 120 760 140C700 160 660 220 650 290" stroke="#fbe39b" stroke-width="20" fill="none" stroke-linecap="round" opacity="0.85"/>
-  <g fill="#f4e7bf" opacity="0.7">
-    <ellipse cx="760" cy="640" rx="120" ry="60"/>
-    <ellipse cx="520" cy="560" rx="80" ry="26"/>
+
+  <rect width="1200" height="800" fill="url(#sky2)"/>
+
+  <!-- Sun -->
+  <circle cx="970" cy="180" r="220" fill="url(#sun2Glow)"/>
+  <circle cx="970" cy="180" r="78" fill="#fff7c4"/>
+
+  <!-- Clouds -->
+  <g fill="#ffffff" opacity="0.92">
+    <ellipse cx="200" cy="190" rx="60" ry="22"/>
+    <circle cx="170" cy="180" r="24"/>
+    <circle cx="210" cy="168" r="32"/>
+    <circle cx="245" cy="184" r="26"/>
+    <ellipse cx="520" cy="150" rx="78" ry="26"/>
+    <circle cx="485" cy="138" r="28"/>
+    <circle cx="535" cy="124" r="36"/>
+    <circle cx="582" cy="142" r="28"/>
+    <ellipse cx="780" cy="240" rx="55" ry="20"/>
+    <circle cx="760" cy="232" r="24"/>
+    <circle cx="800" cy="226" r="28"/>
+  </g>
+
+  <!-- Distant rolling hills -->
+  <path d="M0 500 Q200 460 400 480 Q600 510 800 470 Q1000 440 1200 480 L1200 600 L0 600 Z" fill="#84b375" opacity="0.7"/>
+  <path d="M0 550 Q150 510 350 530 Q550 550 750 520 Q950 500 1200 530 L1200 600 L0 600 Z" fill="#5d9c4d" opacity="0.88"/>
+
+  <!-- Foreground meadow -->
+  <rect x="0" y="580" width="1200" height="220" fill="url(#grass)"/>
+
+  <!-- Grass tufts -->
+  <g stroke="#3f7634" stroke-width="3" stroke-linecap="round" fill="none" opacity="0.7">
+    <path d="M40 720 L36 700 M44 720 L48 700"/>
+    <path d="M150 760 L146 740 M154 760 L158 740"/>
+    <path d="M260 700 L256 680 M264 700 L268 680"/>
+    <path d="M400 745 L396 725 M404 745 L408 725"/>
+    <path d="M820 700 L816 680 M824 700 L828 680"/>
+    <path d="M920 760 L916 740 M924 760 L928 740"/>
+    <path d="M1060 720 L1056 700 M1064 720 L1068 700"/>
+    <path d="M1160 760 L1156 740 M1164 760 L1168 740"/>
+  </g>
+
+  <!-- Flowers -->
+  <g>
+    <circle cx="100" cy="700" r="6" fill="#ffe066"/>
+    <circle cx="100" cy="700" r="2.5" fill="#ff9e3b"/>
+    <circle cx="230" cy="740" r="6" fill="#ffffff"/>
+    <circle cx="230" cy="740" r="2.5" fill="#ffe066"/>
+    <circle cx="360" cy="710" r="6" fill="#ffe066"/>
+    <circle cx="360" cy="710" r="2.5" fill="#ff9e3b"/>
+    <circle cx="470" cy="755" r="6" fill="#ff8eb1"/>
+    <circle cx="470" cy="755" r="2.5" fill="#ffe066"/>
+    <circle cx="870" cy="745" r="6" fill="#ffffff"/>
+    <circle cx="870" cy="745" r="2.5" fill="#ffe066"/>
+    <circle cx="990" cy="710" r="6" fill="#ffe066"/>
+    <circle cx="990" cy="710" r="2.5" fill="#ff9e3b"/>
+    <circle cx="1110" cy="745" r="6" fill="#ff8eb1"/>
+    <circle cx="1110" cy="745" r="2.5" fill="#ffe066"/>
+  </g>
+
+  <!-- Sheep -->
+  <g transform="translate(600 620)">
+    <!-- Shadow -->
+    <ellipse cx="0" cy="78" rx="140" ry="14" fill="#2a4a25" opacity="0.32"/>
+
+    <!-- Legs -->
+    <rect x="-58" y="20" width="14" height="64" rx="5" fill="#2f2018"/>
+    <rect x="-22" y="22" width="14" height="62" rx="5" fill="#2f2018"/>
+    <rect x="22" y="22" width="14" height="62" rx="5" fill="#2f2018"/>
+    <rect x="58" y="20" width="14" height="64" rx="5" fill="#2f2018"/>
+
+    <!-- Hooves -->
+    <rect x="-60" y="78" width="18" height="6" rx="2" fill="#1a1108"/>
+    <rect x="-24" y="80" width="18" height="6" rx="2" fill="#1a1108"/>
+    <rect x="20" y="80" width="18" height="6" rx="2" fill="#1a1108"/>
+    <rect x="56" y="78" width="18" height="6" rx="2" fill="#1a1108"/>
+
+    <!-- Wooly body -->
+    <g fill="#fcfbf2">
+      <circle cx="0" cy="0" r="72"/>
+      <circle cx="-48" cy="-15" r="38"/>
+      <circle cx="48" cy="-15" r="38"/>
+      <circle cx="-62" cy="15" r="32"/>
+      <circle cx="62" cy="15" r="32"/>
+      <circle cx="-30" cy="-45" r="34"/>
+      <circle cx="30" cy="-45" r="34"/>
+      <circle cx="0" cy="-58" r="32"/>
+      <circle cx="-72" cy="-5" r="26"/>
+      <circle cx="72" cy="-5" r="26"/>
+    </g>
+
+    <!-- Wool shading -->
+    <g fill="#e6e2d2" opacity="0.55">
+      <circle cx="-30" cy="20" r="14"/>
+      <circle cx="30" cy="20" r="14"/>
+      <circle cx="-55" cy="0" r="10"/>
+      <circle cx="55" cy="0" r="10"/>
+    </g>
+
+    <!-- Head -->
+    <ellipse cx="-92" cy="-10" rx="32" ry="30" fill="#2f2018"/>
+    <ellipse cx="-90" cy="-5" rx="22" ry="22" fill="#4a3527"/>
+
+    <!-- Ears -->
+    <ellipse cx="-104" cy="-34" rx="9" ry="14" fill="#2f2018" transform="rotate(-22 -104 -34)"/>
+    <ellipse cx="-80" cy="-34" rx="9" ry="14" fill="#2f2018" transform="rotate(22 -80 -34)"/>
+    <ellipse cx="-104" cy="-32" rx="4" ry="8" fill="#f6b5c0" transform="rotate(-22 -104 -32)"/>
+    <ellipse cx="-80" cy="-32" rx="4" ry="8" fill="#f6b5c0" transform="rotate(22 -80 -32)"/>
+
+    <!-- Wool tuft -->
+    <circle cx="-92" cy="-42" r="14" fill="#fcfbf2"/>
+
+    <!-- Eye -->
+    <circle cx="-100" cy="-10" r="4.5" fill="#ffffff"/>
+    <circle cx="-101" cy="-9" r="3" fill="#0a0a0a"/>
+    <circle cx="-100" cy="-11" r="1" fill="#ffffff"/>
+
+    <!-- Mouth -->
+    <path d="M-108 4 Q-100 10 -92 4" stroke="#1a1108" stroke-width="2" fill="none" stroke-linecap="round"/>
   </g>
 </svg>

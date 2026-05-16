@@ -1,21 +1,101 @@
 <svg width="1200" height="800" viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <linearGradient id="grad3" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#1a273f"/>
-      <stop offset="100%" stop-color="#092131"/>
+    <linearGradient id="sky3" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#5e3a6e"/>
+      <stop offset="35%" stop-color="#b6657a"/>
+      <stop offset="60%" stop-color="#ee9466"/>
+      <stop offset="85%" stop-color="#ffc887"/>
+      <stop offset="100%" stop-color="#ffe0a8"/>
     </linearGradient>
-    <radialGradient id="glow3" cx="70%" cy="25%" r="55%">
-      <stop offset="0%" stop-color="#8ff2ff" stop-opacity="0.76"/>
-      <stop offset="100%" stop-color="#081821" stop-opacity="0"/>
+    <radialGradient id="sun3" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#fff7c0"/>
+      <stop offset="55%" stop-color="#ffd66a"/>
+      <stop offset="100%" stop-color="#ff9942" stop-opacity="0"/>
     </radialGradient>
+    <linearGradient id="water" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffb986"/>
+      <stop offset="50%" stop-color="#b389a6"/>
+      <stop offset="100%" stop-color="#4e3f63"/>
+    </linearGradient>
   </defs>
-  <rect width="1200" height="800" fill="url(#grad3)"/>
-  <circle cx="860" cy="190" r="160" fill="url(#glow3)"/>
-  <path d="M200 740C320 620 460 580 620 520C760 470 960 540 1100 680V820H200V740Z" fill="#1f4c79" opacity="0.6"/>
-  <g stroke="#aeeaff" stroke-width="18" fill="none" stroke-linecap="round" opacity="0.9">
-    <path d="M300 200C340 140 420 100 520 110C620 120 690 180 730 260"/>
-    <path d="M340 320C400 280 500 270 560 305C620 340 640 420 610 500"/>
+
+  <rect width="1200" height="800" fill="url(#sky3)"/>
+
+  <!-- Sun (large, setting) -->
+  <circle cx="700" cy="400" r="200" fill="url(#sun3)"/>
+  <circle cx="700" cy="400" r="92" fill="#fff5a0" opacity="0.96"/>
+
+  <!-- Cloud streaks -->
+  <g fill="#ffd9b0" opacity="0.55">
+    <ellipse cx="200" cy="200" rx="130" ry="7"/>
+    <ellipse cx="430" cy="260" rx="100" ry="6"/>
+    <ellipse cx="950" cy="190" rx="110" ry="7"/>
+    <ellipse cx="1080" cy="290" rx="80" ry="5"/>
   </g>
-  <circle cx="140" cy="560" r="30" fill="#91d9ff" opacity="0.7"/>
-  <circle cx="1010" cy="560" r="28" fill="#bee9ff" opacity="0.65"/>
+
+  <!-- Birds in flight -->
+  <g stroke="#2f2238" stroke-width="3" fill="none" stroke-linecap="round">
+    <path d="M180 280 Q190 270 200 280 Q210 270 220 280"/>
+    <path d="M280 250 Q288 244 296 250 Q304 244 312 250"/>
+    <path d="M340 290 Q347 285 354 290 Q361 285 368 290"/>
+    <path d="M880 250 Q890 244 900 250 Q910 244 920 250"/>
+    <path d="M960 280 Q968 274 976 280 Q984 274 992 280"/>
+    <path d="M1030 240 Q1038 234 1046 240 Q1054 234 1062 240"/>
+  </g>
+
+  <!-- Far mountains (lightest, behind sun) -->
+  <path d="M0 470 L130 380 L260 440 L390 360 L520 420 L650 350 L780 430 L910 370 L1050 410 L1200 380 L1200 580 L0 580 Z" fill="#8a6e95" opacity="0.55"/>
+
+  <!-- Middle mountains -->
+  <path d="M0 540 L110 430 L250 500 L380 420 L500 480 L620 410 L760 490 L900 430 L1040 470 L1200 440 L1200 600 L0 600 Z" fill="#5e4868" opacity="0.85"/>
+
+  <!-- Near mountains (darkest) -->
+  <path d="M0 580 L100 490 L240 550 L380 480 L520 540 L650 470 L800 540 L960 490 L1100 530 L1200 510 L1200 620 L0 620 Z" fill="#2f2238"/>
+
+  <!-- Small distant house silhouette on near mountain ridge -->
+  <g transform="translate(900 530)" fill="#1a0f24">
+    <rect x="-13" y="0" width="26" height="18"/>
+    <polygon points="-18,0 0,-16 18,0"/>
+    <rect x="-3" y="6" width="6" height="12" fill="#ff9e3b" opacity="0.85"/>
+  </g>
+
+  <!-- River with reflection -->
+  <rect x="0" y="620" width="1200" height="44" fill="url(#water)"/>
+
+  <!-- Water sparkles (sun reflection) -->
+  <g fill="#fff0c0" opacity="0.6">
+    <ellipse cx="700" cy="638" rx="200" ry="3"/>
+    <ellipse cx="500" cy="645" rx="120" ry="2"/>
+    <ellipse cx="900" cy="650" rx="90" ry="2"/>
+    <ellipse cx="300" cy="652" rx="80" ry="1.5"/>
+    <ellipse cx="1050" cy="655" rx="60" ry="1.5"/>
+  </g>
+
+  <!-- River bank ripples -->
+  <g stroke="#ffe0a8" stroke-width="1.2" fill="none" opacity="0.4">
+    <path d="M0 626 Q300 624 600 626 T1200 624"/>
+    <path d="M0 660 Q300 658 600 660 T1200 658"/>
+  </g>
+
+  <!-- Rice fields foreground -->
+  <rect x="0" y="664" width="1200" height="140" fill="#23332a"/>
+
+  <!-- Field furrows -->
+  <g stroke="#384e3f" stroke-width="2" fill="none" opacity="0.85">
+    <path d="M0 680 Q400 685 800 680 T1200 685"/>
+    <path d="M0 700 Q400 706 800 700 T1200 706"/>
+    <path d="M0 720 Q400 726 800 720 T1200 726"/>
+    <path d="M0 745 Q400 752 800 745 T1200 752"/>
+    <path d="M0 772 Q400 778 800 772 T1200 778"/>
+  </g>
+
+  <!-- A few rice plant tufts -->
+  <g fill="#7c9a6a" opacity="0.7">
+    <ellipse cx="120" cy="688" rx="6" ry="4"/>
+    <ellipse cx="340" cy="712" rx="6" ry="4"/>
+    <ellipse cx="560" cy="700" rx="6" ry="4"/>
+    <ellipse cx="780" cy="732" rx="6" ry="4"/>
+    <ellipse cx="980" cy="710" rx="6" ry="4"/>
+    <ellipse cx="1140" cy="730" rx="6" ry="4"/>
+  </g>
 </svg>
