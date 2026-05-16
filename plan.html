@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ピアノゲーム実装計画</title>
+  <style>
+    body { font-family: system-ui, sans-serif; line-height: 1.6; padding: 24px; background: #f7f7fb; color: #1a1a1a; }
+    h1, h2, h3 { color: #2f3d8a; }
+    section { background: #fff; border: 1px solid #d8d8e6; border-radius: 12px; padding: 20px; margin-bottom: 20px; }
+    ul { margin: 0 0 16px 20px; }
+    .note { background: #eef2ff; border-left: 4px solid #5b6bd1; padding: 12px 16px; margin: 14px 0; }
+    .code { font-family: Menlo, Monaco, monospace; background: #f1f3ff; padding: 4px 6px; border-radius: 4px; }
+  </style>
+</head>
+<body>
+  <h1>ピアノゲーム実装計画</h1>
+
+  <section>
+    <h2>1. 目的</h2>
+    <p>ブラウザベースのピアノゲームをHTML/CSS/JavaScriptで実装します。PCではキーボード入力、スマートフォン・タブレットでは画面下部の鍵盤タップで演奏できるようにします。</p>
+  </section>
+
+  <section>
+    <h2>2. ゲームの流れ</h2>
+    <ol>
+      <li>曲選択画面で楽曲を選択</li>
+      <li>ゲーム開始後、譜面に合わせてマーカー（ノート）が落下</li>
+      <li>タイミングよくキーを押すと得点が加算</li>
+      <li>選択した曲に合わせたイメージ画像を背景として表示</li>
+      <li>スコアが100点満点中60点以上なら合格</li>
+      <li>1回目は練習ステージ、合格後は次のステージへ</li>
+      <li>曲が終わったら、結果画面から次の曲選択画面に戻る</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>3. 画面構成</h2>
+    <h3>曲選択画面</h3>
+    <ul>
+      <li>曲タイトル一覧</li>
+      <li>練習ステージ表示</li>
+      <li>クリアで次のステージをアンロック</li>
+    </ul>
+    <h3>ゲーム画面</h3>
+    <ul>
+      <li>画面上部：ノート落下エリア</li>
+      <li>画面下部：鍵盤</li>
+      <li>スコア・判定・合格ラインの表示</li>
+    </ul>
+    <h3>背景イメージ</h3>
+    <ul>
+      <li>曲ごとにテーマの異なる背景画像を用意</li>
+      <li>ゲーム画面全体に背景を設定して臨場感を演出</li>
+      <li>曲選択時に各曲のイメージを見せる</li>
+    </ul>
+    <h3>結果画面</h3>
+    <ul>
+      <li>最終スコア表示</li>
+      <li>60点以上で合格判定</li>
+      <li>再挑戦または次のステージへ</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>4. 操作方法</h2>
+    <h3>PC</h3>
+    <ul>
+      <li>キーボード入力で演奏</li>
+      <li>例：<span class="code">1 2 3 4 5 6 7 8</span> を <span class="code">ド レ ミ ファ ソ ラ シ ド</span> に対応</li>
+    </ul>
+    <h3>スマホ / タブレット</h3>
+    <ul>
+      <li>画面下部の鍵盤をタップ</li>
+      <li>押した鍵盤に応じて音が再生される</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>5. 譜面と判定</h2>
+    <h3>譜面データ</h3>
+    <p>楽曲ごとにノートのキーと発音タイミングを定義します。</p>
+    <pre class="code">[{ key: 'C', time: 1.25 }, { key: 'D', time: 2.00 }, ...]</pre>
+    <h3>ノート落下</h3>
+    <ul>
+      <li>ノートは上から下へ一定速度で移動</li>
+      <li>鍵盤位置に到達したタイミングで判定</li>
+    </ul>
+    <h3>判定基準</h3>
+    <ul>
+      <li>Perfect: ±0.1秒</li>
+      <li>Good: ±0.2秒</li>
+      <li>Miss: それ以外</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>6. スコア設計</h2>
+    <ul>
+      <li>100点満点を基準にノート配点を決定</li>
+      <li>判定ごとに得点を加算</li>
+      <li>例：Perfectは高得点、Goodは中得点、Missは0点</li>
+      <li>最終スコアが60点以上で合格</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>7. 音声再生</h2>
+    <ul>
+      <li>鍵盤を押すと対応する音が再生される</li>
+      <li>ブラウザのAudio APIを利用</li>
+      <li>音声ファイル例：<span class="code">do.mp3</span>, <span class="code">re.mp3</span>, <span class="code">mi.mp3</span></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>8. 技術スタック</h2>
+    <ul>
+      <li>HTML / CSS / JavaScript</li>
+      <li>ファイル構成例：</li>
+      <ul>
+        <li><span class="code">index.html</span></li>
+        <li><span class="code">style.css</span></li>
+        <li><span class="code">script.js</span></li>
+        <li><span class="code">songs.js</span></li>
+        <li><span class="code">sounds/</span></li>
+      </ul>
+    </ul>
+  </section>
+
+  <section>
+    <h2>9. 次のステップ</h2>
+    <ol>
+      <li>基本画面レイアウトを作成</li>
+      <li>曲選択と譜面データの構造を実装</li>
+      <li>ノート落下と入力判定の仕組みを実装</li>
+      <li>音声再生とスコア計算を追加</li>
+      <li>モバイル対応のタッチ操作を実装</li>
+    </ol>
+  </section>
+</body>
+</html>

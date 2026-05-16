@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ピアノ名人</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="background-layer" class="song-bg-song1"></div>
+  <div id="app" class="app-shell">
+    <div id="countdown" class="countdown hidden" aria-hidden="true"></div>
+    <header class="app-header">
+      <h1>ピアノ名人</h1>
+      <p>PCは1〜8キー、スマホは鍵盤をタップして演奏</p>
+    </header>
+
+    <main>
+      <section id="selection-screen" class="screen screen-active">
+        <h2>曲を選択</h2>
+        <div id="song-list" class="song-list"></div>
+      </section>
+
+      <section id="game-screen" class="screen">
+        <div class="game-info">
+          <div>
+            <p class="label">曲名</p>
+            <h2 id="current-song-title"></h2>
+            <p id="current-song-subtitle" class="subtitle"></p>
+          </div>
+          <div class="scoreboard">
+            <p class="label">スコア</p>
+            <div id="score-value">0</div>
+            <p class="pass-line">合格ライン 60点</p>
+          </div>
+        </div>
+        <div class="judge-panel">
+          <span id="judge-text">準備中</span>
+        </div>
+        <div class="note-track" id="note-track">
+          <div class="hit-line"></div>
+        </div>
+        <div class="keyboard-panel" id="keyboard-panel"></div>
+      </section>
+
+      <section id="result-screen" class="screen">
+        <h2>演奏結果</h2>
+        <div class="result-card">
+          <p class="label">最終スコア</p>
+          <div id="final-score">0</div>
+          <p id="final-judge" class="result-judge">---</p>
+        </div>
+        <div class="result-actions">
+          <button id="btn-retry" class="primary-button">再挑戦</button>
+          <button id="btn-next-stage" class="primary-button">次のステージへ</button>
+          <button id="btn-back-selection" class="secondary-button">曲選択に戻る</button>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="songs.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
