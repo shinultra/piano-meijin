@@ -16,6 +16,8 @@ const NOTE_FREQUENCIES = {
 const LEAD_TIME = 2.2;
 const PERFECT_WINDOW = 0.12;
 const GOOD_WINDOW = 0.24;
+const RELEASE_GRACE = 0.3;
+const DEFAULT_DURATION = 0.2;
 const MAX_SCORE = 100;
 
 let audioContext;
@@ -29,6 +31,26 @@ let judgeText = '準備中';
 let allNotes = [];
 let isPlaying = false;
 let currentSongIndex = 0;
+const pressedKeys = new Set();
+
+function judgeTimingDelta(delta) {
+  const abs = Math.abs(delta);
+  if (abs <= PERFECT_WINDOW) return 'Perfect';
+  if (abs <= GOOD_WINDOW) return 'Good';
+  return 'Miss';
+}
+
+function judgmentValue(label) {
+  if (label === 'Perfect') return 1.0;
+  if (label === 'Good') return 0.72;
+  return 0;
+}
+
+function worstJudgment(a, b) {
+  if (a === 'Miss' || b === 'Miss') return 'Miss';
+  if (a === 'Good' || b === 'Good') return 'Good';
+  return 'Perfect';
+}
 
 const selectionScreen = document.getElementById('selection-screen');
 const gameScreen = document.getElementById('game-screen');
@@ -55,6 +77,7 @@ function init() {
   btnRetry.addEventListener('click', () => selectSong(currentSongIndex));
   btnNextStage.addEventListener('click', () => selectSong(currentSongIndex + 1));
   window.addEventListener('keydown', handleKeyDown);
+  window.addEventListener('keyup', handleKeyUp);
 }
 
 function prepareAudio() {
@@ -123,14 +146,20 @@ function startGame() {
   currentSongTitle.textContent = activeSong.title;
   currentSongSubtitle.textContent = activeSong.subtitle;
   noteTrack.innerHTML = '<div class="hit-line"></div>';
+  pressedKeys.clear();
   allNotes = activeSong.notes.map((note, index) => ({
     ...note,
-    hit: false,
+    duration: typeof note.duration === 'number' ? note.duration : DEFAULT_DURATION,
+    state: 'pending',
+    pressTime: null,
+    releaseTime: null,
+    pressJudgment: null,
+    releaseJudgment: null,
     noteElement: null,
+    blockHeight: 0,
     index
   }));
   createNoteElements();
-  // カウントダウンを表示してから演奏開始
   showCountdown(3, () => {
     gameStartTime = audioContext.currentTime + 0.05;
     scheduleSongEnd();
@@ -159,36 +188,46 @@ function showCountdown(seconds, cb) {
 }
 
 function createNoteElements() {
-  const trackWidth = noteTrack.clientWidth;
-  const columnWidth = trackWidth / NOTE_KEYS.length;
+  const trackHeight = noteTrack.clientHeight || 480;
+  const speed = (trackHeight - 92) / LEAD_TIME;
   allNotes.forEach(note => {
     const block = document.createElement('div');
     block.className = 'note-block';
+    const blockHeight = Math.max(44, speed * note.duration);
+    if (note.duration > 0.4) block.classList.add('long-note');
     block.textContent = NOTE_NAMES[note.key];
     block.style.width = `calc(${100 / NOTE_KEYS.length}% - 10px)`;
     block.style.left = `calc(${NOTE_KEYS.indexOf(note.key) * (100 / NOTE_KEYS.length)}% + 5px)`;
-    block.style.top = '-70px';
+    block.style.height = `${blockHeight}px`;
+    block.style.top = `${-blockHeight - 20}px`;
     note.noteElement = block;
+    note.blockHeight = blockHeight;
     noteTrack.appendChild(block);
   });
 }
 
 function updateNotes() {
   const currentTime = audioContext.currentTime - gameStartTime;
+  const trackHeight = noteTrack.clientHeight || 480;
+  const distance = trackHeight - 92;
   allNotes.forEach(note => {
-    const timeFromHit = currentTime - note.time;
+    if (note.state === 'completed' || note.state === 'missed') return;
     const visibleTime = note.time - LEAD_TIME;
     if (currentTime >= visibleTime) {
-      const progress = Math.min(1, Math.max(0, (currentTime - visibleTime) / LEAD_TIME));
-      const y = progress * (noteTrack.clientHeight - 60);
-      note.noteElement.style.transform = `translateY(${y}px)`;
+      const headProgress = (currentTime - visibleTime) / LEAD_TIME;
+      const headY = headProgress * distance;
+      note.noteElement.style.top = `${headY - note.blockHeight}px`;
     }
-    if (!note.hit && currentTime > note.time + GOOD_WINDOW) {
-      markMiss(note);
+    if (note.state === 'pending' && currentTime > note.time + GOOD_WINDOW) {
+      autoMissNote(note);
+    } else if (note.state === 'pressed' && currentTime > note.time + note.duration + GOOD_WINDOW + RELEASE_GRACE) {
+      autoReleaseNote(note);
     }
   });
 
-  if (currentTime < activeSong.notes[activeSong.notes.length - 1].time + 2) {
+  const last = activeSong.notes[activeSong.notes.length - 1];
+  const lastEnd = last.time + (typeof last.duration === 'number' ? last.duration : DEFAULT_DURATION);
+  if (currentTime < lastEnd + 2) {
     animationFrameId = requestAnimationFrame(updateNotes);
   }
 }
@@ -197,12 +236,20 @@ function handleKeyDown(event) {
   if (!isPlaying) return;
   const key = event.key;
   if (!NOTE_KEYS.includes(key)) return;
+  if (pressedKeys.has(key)) return;
+  pressedKeys.add(key);
   const element = document.querySelector(`.key-button[data-key="${key}"]`);
-  if (element) {
-    element.classList.add('active');
-    window.setTimeout(() => element.classList.remove('active'), 120);
-  }
+  if (element) element.classList.add('active');
   pressNote(key);
+}
+
+function handleKeyUp(event) {
+  const key = event.key;
+  if (!pressedKeys.has(key)) return;
+  pressedKeys.delete(key);
+  const element = document.querySelector(`.key-button[data-key="${key}"]`);
+  if (element) element.classList.remove('active');
+  releaseNote(key);
 }
 
 function buildKeyboard() {
@@ -212,10 +259,25 @@ function buildKeyboard() {
     button.className = 'key-button';
     button.dataset.key = key;
     button.innerHTML = `<p class="key-note">${NOTE_NAMES[key]}</p><p class="key-label">${key}</p>`;
-    button.addEventListener('pointerdown', () => pressNote(key));
+    button.addEventListener('pointerdown', (e) => {
+      e.preventDefault();
+      if (button.dataset.pressed === 'true') return;
+      button.dataset.pressed = 'true';
+      try { button.setPointerCapture(e.pointerId); } catch (_) {}
+      button.classList.add('active');
+      pressNote(key);
+    });
+    const releaseFromPointer = () => {
+      if (button.dataset.pressed !== 'true') return;
+      button.dataset.pressed = 'false';
+      button.classList.remove('active');
+      releaseNote(key);
+    };
+    button.addEventListener('pointerup', releaseFromPointer);
+    button.addEventListener('pointercancel', releaseFromPointer);
+    button.addEventListener('lostpointercapture', releaseFromPointer);
     keyboardPanel.appendChild(button);
   });
-  // Decorative black keys (between C-D, D-E, F-G, G-A, A-B in C major)
   [1, 2, 4, 5, 6].forEach(afterIndex => {
     const black = document.createElement('span');
     black.className = `black-key bk-${afterIndex}`;
@@ -227,7 +289,7 @@ function buildKeyboard() {
 function pressNote(key) {
   if (!isPlaying) return;
   playNoteSound(key);
-  const target = findClosestNoteForKey(key);
+  const target = findClosestPendingNoteForKey(key);
   if (!target) {
     judgeText = 'Miss';
     judgeElement.textContent = judgeText;
@@ -235,14 +297,36 @@ function pressNote(key) {
     return;
   }
   const currentTime = audioContext.currentTime - gameStartTime;
-  const delta = Math.abs(currentTime - target.time);
-  if (delta <= PERFECT_WINDOW) {
-    scoreHit(target, 3, 'Perfect');
-  } else if (delta <= GOOD_WINDOW) {
-    scoreHit(target, 2, 'Good');
-  } else {
-    markMiss(target);
+  const pressDelta = currentTime - target.time;
+  const pressJudgment = judgeTimingDelta(pressDelta);
+  if (pressJudgment === 'Miss') {
+    autoMissNote(target);
+    return;
   }
+  target.state = 'pressed';
+  target.pressTime = currentTime;
+  target.pressJudgment = pressJudgment;
+  target.noteElement.classList.add('note-pressed');
+  judgeText = pressJudgment;
+  judgeElement.textContent = judgeText;
+  showJudgmentEffect(key, pressJudgment);
+}
+
+function releaseNote(key) {
+  const note = allNotes.find(n => n.key === key && n.state === 'pressed');
+  if (!note) return;
+  const currentTime = audioContext.currentTime - gameStartTime;
+  const expectedEnd = note.time + note.duration;
+  const releaseDelta = currentTime - expectedEnd;
+  const releaseJudgment = judgeTimingDelta(releaseDelta);
+  note.releaseTime = currentTime;
+  note.releaseJudgment = releaseJudgment;
+  note.state = 'completed';
+  finalizeNote(note);
+  const final = worstJudgment(note.pressJudgment, releaseJudgment);
+  judgeText = final;
+  judgeElement.textContent = judgeText;
+  showJudgmentEffect(key, releaseJudgment);
 }
 
 function showJudgmentEffect(key, label) {
@@ -266,44 +350,61 @@ function showJudgmentEffect(key, label) {
   setTimeout(() => effect.remove(), 850);
 }
 
-function findClosestNoteForKey(key) {
-  const candidates = allNotes.filter(note => note.key === key && !note.hit);
+function findClosestPendingNoteForKey(key) {
+  const currentTime = audioContext.currentTime - gameStartTime;
+  const window = GOOD_WINDOW + 0.05;
+  const candidates = allNotes.filter(note =>
+    note.key === key &&
+    note.state === 'pending' &&
+    Math.abs(currentTime - note.time) <= window
+  );
   if (!candidates.length) return null;
-  return candidates.reduce((best, note) => {
-    const currentTime = audioContext.currentTime - gameStartTime;
-    const bestDist = Math.abs(currentTime - best.time);
-    const noteDist = Math.abs(currentTime - note.time);
-    return noteDist < bestDist ? note : best;
-  });
+  return candidates.reduce((best, note) =>
+    Math.abs(currentTime - note.time) < Math.abs(currentTime - best.time) ? note : best
+  );
 }
 
-function scoreHit(note, multiplier, label) {
-  if (note.hit) return;
-  note.hit = true;
-  note.noteElement.style.opacity = '0.35';
-  note.noteElement.style.transform += ' scale(0.9)';
-  const scoreStep = multiplier === 3 ? pointPerNote : pointPerNote * 0.72;
-  currentScore += scoreStep;
-  currentScore = Math.min(currentScore, MAX_SCORE);
+function finalizeNote(note) {
+  const pressVal = judgmentValue(note.pressJudgment);
+  const releaseVal = judgmentValue(note.releaseJudgment);
+  const factor = (pressVal + releaseVal) / 2;
+  currentScore = Math.min(MAX_SCORE, currentScore + pointPerNote * factor);
   scoreValue.textContent = Math.round(currentScore);
   scoreValue.classList.toggle('passing', currentScore >= 60);
-  judgeText = label;
-  judgeElement.textContent = judgeText;
-  showJudgmentEffect(note.key, label);
+  note.noteElement.classList.remove('note-pressed');
+  const final = worstJudgment(note.pressJudgment, note.releaseJudgment);
+  note.noteElement.classList.add(`note-${final.toLowerCase()}`);
+  note.noteElement.style.opacity = '0.35';
 }
 
-function markMiss(note) {
-  if (note.hit) return;
-  note.hit = true;
-  note.noteElement.style.opacity = '0.18';
-  note.noteElement.style.transform += ' translateY(12px)';
+function autoMissNote(note) {
+  if (note.state === 'completed' || note.state === 'missed') return;
+  note.state = 'missed';
+  note.pressJudgment = 'Miss';
+  note.releaseJudgment = 'Miss';
+  note.noteElement.classList.remove('note-pressed');
+  note.noteElement.classList.add('note-missed');
+  note.noteElement.style.opacity = '0.2';
   judgeText = 'Miss';
   judgeElement.textContent = judgeText;
   showJudgmentEffect(note.key, 'Miss');
 }
 
+function autoReleaseNote(note) {
+  if (note.state !== 'pressed') return;
+  note.releaseTime = audioContext.currentTime - gameStartTime;
+  note.releaseJudgment = 'Miss';
+  note.state = 'completed';
+  finalizeNote(note);
+  showJudgmentEffect(note.key, 'Miss');
+  judgeText = 'Miss';
+  judgeElement.textContent = judgeText;
+}
+
 function scheduleSongEnd() {
-  const lastTime = activeSong.notes[activeSong.notes.length - 1].time + 1.2;
+  const last = activeSong.notes[activeSong.notes.length - 1];
+  const lastDur = typeof last.duration === 'number' ? last.duration : DEFAULT_DURATION;
+  const lastTime = last.time + lastDur + 1.4;
   const endTime = gameStartTime + lastTime;
   setTimeout(() => finishSong(), (endTime - audioContext.currentTime) * 1000);
 }

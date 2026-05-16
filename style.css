@@ -383,16 +383,43 @@ body {
 .note-block {
   position: absolute;
   width: calc(100% / 8 - 10px);
-  height: 44px;
+  min-height: 44px;
   border-radius: 14px;
   background: linear-gradient(180deg, rgba(124, 139, 255, 0.95), rgba(67, 82, 190, 0.85));
   box-shadow: 0 14px 40px rgba(89, 102, 238, 0.2);
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
+  padding-bottom: 10px;
   color: white;
   font-weight: 700;
   text-shadow: 0 0 18px rgba(28, 35, 88, 0.6);
+  transition: opacity 0.18s ease, background 0.15s ease, box-shadow 0.15s ease;
+}
+
+.note-block.long-note {
+  background: linear-gradient(180deg, rgba(124, 139, 255, 0.45) 0%, rgba(102, 119, 230, 0.75) 60%, rgba(67, 82, 190, 0.95) 100%);
+  border-bottom: 4px solid #fff5b0;
+  box-shadow: 0 14px 40px rgba(89, 102, 238, 0.25), inset 0 0 0 1px rgba(255, 245, 176, 0.25);
+}
+
+.note-block.note-pressed {
+  background: linear-gradient(180deg, rgba(255, 230, 130, 0.55) 0%, rgba(255, 209, 102, 0.95) 100%);
+  border-bottom-color: #fff5b0;
+  box-shadow: 0 0 24px rgba(255, 209, 102, 0.7), inset 0 0 0 1px rgba(255, 245, 176, 0.6);
+}
+
+.note-block.note-perfect {
+  background: linear-gradient(180deg, rgba(255, 209, 102, 0.75), rgba(255, 168, 60, 0.4));
+}
+
+.note-block.note-good {
+  background: linear-gradient(180deg, rgba(124, 255, 158, 0.7), rgba(80, 180, 100, 0.4));
+}
+
+.note-block.note-miss,
+.note-block.note-missed {
+  background: linear-gradient(180deg, rgba(255, 122, 122, 0.55), rgba(180, 60, 60, 0.45));
 }
 
 .piano-frame {
