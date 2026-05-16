@@ -4,6 +4,8 @@ const SONG_LIST = [
     title: 'キラキラ星',
     subtitle: '練習ステージ',
     image: 'images/song1.svg',
+    difficulty: 1,
+    leadTime: 2.5,
     notes: [
       { key: '1', time: 0.5 }, { key: '1', time: 1.25 }, { key: '5', time: 2.0 }, { key: '5', time: 2.75 },
       { key: '6', time: 3.5 }, { key: '6', time: 4.25 }, { key: '5', time: 5.0, duration: 0.6 },
@@ -16,6 +18,8 @@ const SONG_LIST = [
     title: 'メリーさんのひつじ',
     subtitle: 'ステージ 2',
     image: 'images/song2.svg',
+    difficulty: 1,
+    leadTime: 2.4,
     notes: [
       { key: '3', time: 0.5 }, { key: '2', time: 1.25 }, { key: '1', time: 2.0 },
       { key: '2', time: 2.75 }, { key: '3', time: 3.5 }, { key: '3', time: 4.25 },
@@ -29,6 +33,8 @@ const SONG_LIST = [
     title: 'ふるさと',
     subtitle: 'ステージ 3',
     image: 'images/song3.svg',
+    difficulty: 2,
+    leadTime: 2.3,
     notes: [
       { key: '1', time: 0.5 }, { key: '1', time: 1.25 }, { key: '5', time: 2.0 }, { key: '5', time: 2.75 },
       { key: '6', time: 3.5 }, { key: '6', time: 4.25 }, { key: '5', time: 5.0, duration: 0.6 },
@@ -42,6 +48,8 @@ const SONG_LIST = [
     title: 'ちょうちょう',
     subtitle: 'ステージ 4',
     image: 'images/song4.svg',
+    difficulty: 2,
+    leadTime: 2.2,
     notes: [
       { key: '5', time: 0.5 },  { key: '3', time: 1.25 }, { key: '3', time: 2.0 },
       { key: '4', time: 2.75 }, { key: '2', time: 3.5 },  { key: '2', time: 4.25 },
@@ -56,6 +64,8 @@ const SONG_LIST = [
     title: 'かえるの合唱',
     subtitle: 'ステージ 5',
     image: 'images/song5.svg',
+    difficulty: 3,
+    leadTime: 2.1,
     notes: [
       { key: '1', time: 0.5 },  { key: '2', time: 1.25 }, { key: '3', time: 2.0 },
       { key: '1', time: 2.75, duration: 0.6 }, { key: '1', time: 3.75 }, { key: '2', time: 4.5 },
@@ -71,6 +81,8 @@ const SONG_LIST = [
     title: 'ジングルベル',
     subtitle: 'ステージ 6',
     image: 'images/song6.svg',
+    difficulty: 3,
+    leadTime: 2.0,
     notes: [
       { key: '3', time: 0.5 },   { key: '3', time: 1.0 },   { key: '3', time: 1.75, duration: 0.6 },
       { key: '3', time: 2.75 },  { key: '3', time: 3.25 },  { key: '3', time: 4.0, duration: 0.6 },
@@ -88,6 +100,8 @@ const SONG_LIST = [
     title: '歓喜の歌',
     subtitle: 'ステージ 7',
     image: 'images/song7.svg',
+    difficulty: 4,
+    leadTime: 1.9,
     notes: [
       { key: '3', time: 0.5 },   { key: '3', time: 1.25 },  { key: '4', time: 2.0 },
       { key: '5', time: 2.75 },  { key: '5', time: 3.5 },   { key: '4', time: 4.25 },
@@ -101,6 +115,8 @@ const SONG_LIST = [
     title: 'そらいろの夢',
     subtitle: 'ステージ 8',
     image: 'images/song8.svg',
+    difficulty: 4,
+    leadTime: 1.8,
     notes: [
       { key: '1', time: 0.5 },   { key: '3', time: 1.0 },   { key: '5', time: 1.5 },
       { key: '3', time: 2.0 },   { key: '5', time: 2.5 },   { key: '6', time: 3.0, duration: 0.6 },
@@ -117,6 +133,8 @@ const SONG_LIST = [
     title: '勇者の序曲',
     subtitle: 'ステージ 9',
     image: 'images/song9.svg',
+    difficulty: 5,
+    leadTime: 1.7,
     notes: [
       { key: '5', time: 0.5, duration: 0.9 },   { key: '8', time: 1.5 },   { key: '7', time: 2.25 },
       { key: '6', time: 2.75 },  { key: '8', time: 3.5, duration: 0.6 },   { key: '7', time: 4.25 },

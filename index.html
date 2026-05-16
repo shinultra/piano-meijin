@@ -36,6 +36,7 @@
         </div>
         <div class="judge-panel">
           <span id="judge-text">準備中</span>
+          <span id="combo-value" class="combo-value" aria-live="polite"></span>
         </div>
         <div class="note-track" id="note-track">
           <div class="hit-line"></div>
@@ -48,8 +49,10 @@
       <section id="result-screen" class="screen">
         <h2>演奏結果</h2>
         <div class="result-card">
+          <div id="final-rank" class="result-rank" data-rank="—">—</div>
           <p class="label">最終スコア</p>
           <div id="final-score">0</div>
+          <p id="final-max-combo" class="result-combo">MAX COMBO 0</p>
           <p id="final-judge" class="result-judge">---</p>
         </div>
         <div class="result-actions">

@@ -13,13 +13,14 @@ const NOTE_FREQUENCIES = {
   '7': 493.88,
   '8': 523.25
 };
-const LEAD_TIME = 2.2;
+const DEFAULT_LEAD_TIME = 2.2;
 const PERFECT_WINDOW = 0.12;
 const GOOD_WINDOW = 0.24;
 const RELEASE_GRACE = 0.3;
 const DEFAULT_DURATION = 0.2;
 const MAX_SCORE = 100;
 
+let LEAD_TIME = DEFAULT_LEAD_TIME;
 let audioContext;
 let unlockedIndex = 0;
 let activeSong = null;
@@ -31,6 +32,8 @@ let judgeText = '準備中';
 let allNotes = [];
 let isPlaying = false;
 let currentSongIndex = 0;
+let comboCount = 0;
+let maxCombo = 0;
 const pressedKeys = new Set();
 
 function judgeTimingDelta(delta) {
@@ -64,6 +67,9 @@ const noteTrack = document.getElementById('note-track');
 const keyboardPanel = document.getElementById('keyboard-panel');
 const finalScore = document.getElementById('final-score');
 const finalJudge = document.getElementById('final-judge');
+const finalRank = document.getElementById('final-rank');
+const finalCombo = document.getElementById('final-max-combo');
+const comboElement = document.getElementById('combo-value');
 const btnBackSelection = document.getElementById('btn-back-selection');
 const btnRetry = document.getElementById('btn-retry');
 const btnNextStage = document.getElementById('btn-next-stage');
@@ -103,11 +109,14 @@ function renderSongList() {
     if (index > unlockedIndex) {
       card.classList.add('disabled');
     }
+    const diff = Math.max(1, Math.min(5, song.difficulty || 1));
+    const stars = '★'.repeat(diff) + '☆'.repeat(5 - diff);
     card.innerHTML = `
       <img class="song-thumb" src="${song.image}" alt="${song.title} のイメージ">
       <div>
         <h3 class="song-title">${song.title}</h3>
         <p class="song-subtitle">${song.subtitle}</p>
+        <p class="song-difficulty" aria-label="難易度 ${diff}">${stars}</p>
       </div>
       <div class="song-meta">
         <span class="button-label">${index === 0 ? '練習' : 'ステージ ' + (index + 1)}</span>
@@ -138,6 +147,9 @@ function updateBackground(imagePath) {
 function startGame() {
   isPlaying = true;
   currentScore = 0;
+  comboCount = 0;
+  maxCombo = 0;
+  LEAD_TIME = typeof activeSong.leadTime === 'number' ? activeSong.leadTime : DEFAULT_LEAD_TIME;
   pointPerNote = MAX_SCORE / activeSong.notes.length;
   scoreValue.textContent = Math.round(currentScore);
   scoreValue.classList.remove('passing');
@@ -145,6 +157,7 @@ function startGame() {
   judgeElement.textContent = judgeText;
   currentSongTitle.textContent = activeSong.title;
   currentSongSubtitle.textContent = activeSong.subtitle;
+  updateComboDisplay();
   noteTrack.innerHTML = '<div class="hit-line"></div>';
   pressedKeys.clear();
   allNotes = activeSong.notes.map((note, index) => ({
@@ -288,12 +301,13 @@ function buildKeyboard() {
 
 function pressNote(key) {
   if (!isPlaying) return;
-  playNoteSound(key);
   const target = findClosestPendingNoteForKey(key);
+  playNoteSound(key, target ? target.duration : 0.5);
   if (!target) {
     judgeText = 'Miss';
     judgeElement.textContent = judgeText;
     showJudgmentEffect(key, 'Miss');
+    registerNoteJudgment('Miss');
     return;
   }
   const currentTime = audioContext.currentTime - gameStartTime;
@@ -375,6 +389,7 @@ function finalizeNote(note) {
   const final = worstJudgment(note.pressJudgment, note.releaseJudgment);
   note.noteElement.classList.add(`note-${final.toLowerCase()}`);
   note.noteElement.style.opacity = '0.35';
+  registerNoteJudgment(final);
 }
 
 function autoMissNote(note) {
@@ -388,6 +403,44 @@ function autoMissNote(note) {
   judgeText = 'Miss';
   judgeElement.textContent = judgeText;
   showJudgmentEffect(note.key, 'Miss');
+  registerNoteJudgment('Miss');
+}
+
+function registerNoteJudgment(judgment) {
+  if (judgment === 'Miss') {
+    if (comboCount >= 5 && comboElement) {
+      comboElement.classList.remove('break-flash');
+      void comboElement.offsetWidth;
+      comboElement.classList.add('break-flash');
+    }
+    comboCount = 0;
+  } else {
+    comboCount += 1;
+    if (comboCount > maxCombo) maxCombo = comboCount;
+  }
+  updateComboDisplay();
+}
+
+function updateComboDisplay() {
+  if (!comboElement) return;
+  if (comboCount >= 2) {
+    comboElement.textContent = `${comboCount} COMBO`;
+    comboElement.classList.add('active');
+    comboElement.classList.toggle('hot', comboCount >= 10);
+    comboElement.classList.toggle('fire', comboCount >= 20);
+  } else {
+    comboElement.textContent = '';
+    comboElement.classList.remove('active', 'hot', 'fire');
+  }
+}
+
+function computeRank(score) {
+  if (score >= 95) return 'S';
+  if (score >= 85) return 'A';
+  if (score >= 75) return 'B';
+  if (score >= 65) return 'C';
+  if (score >= 60) return 'D';
+  return '—';
 }
 
 function autoReleaseNote(note) {
@@ -417,6 +470,14 @@ function finishSong() {
   finalScore.textContent = score;
   finalScore.classList.toggle('passing', score >= 60);
   finalJudge.textContent = score >= 60 ? '合格！次のステージへ' : '再挑戦しましょう';
+  const rank = computeRank(score);
+  if (finalRank) {
+    finalRank.textContent = rank;
+    finalRank.dataset.rank = rank;
+  }
+  if (finalCombo) {
+    finalCombo.textContent = `MAX COMBO ${maxCombo}`;
+  }
   if (score >= 60 && currentSongIndex === unlockedIndex && unlockedIndex < SONG_LIST.length - 1) {
     unlockedIndex += 1;
   }
@@ -436,7 +497,7 @@ function showScreen(name) {
   resultScreen.classList.toggle('screen-active', name === 'result');
 }
 
-function playNoteSound(key) {
+function playNoteSound(key, duration = 0.5) {
   if (!audioContext) return;
   if (audioContext.state === 'suspended') {
     audioContext.resume();
@@ -444,32 +505,70 @@ function playNoteSound(key) {
   const frequency = NOTE_FREQUENCIES[key];
   if (!frequency) return;
 
-  const osc = audioContext.createOscillator();
-  const gain = audioContext.createGain();
+  const now = audioContext.currentTime;
+  const sustainDur = Math.max(0.55, duration + 0.45);
+  const totalDur = sustainDur + 0.2;
+
+  const master = audioContext.createGain();
+  master.gain.value = 0.0001;
+  master.connect(audioContext.destination);
+
   const filter = audioContext.createBiquadFilter();
-
   filter.type = 'lowpass';
-  filter.frequency.value = 1800;
-  filter.Q.value = 1.5;
+  filter.frequency.setValueAtTime(3600, now);
+  filter.frequency.exponentialRampToValueAtTime(1100, now + sustainDur);
+  filter.Q.value = 0.6;
+  filter.connect(master);
 
-  const real = new Float32Array([0, 1, 0.46, 0.26, 0.14, 0.08, 0.04, 0.02]);
+  const real = new Float32Array([0, 1, 0.55, 0.32, 0.18, 0.12, 0.08, 0.05, 0.03, 0.02]);
   const imag = new Float32Array(real.length);
   const wave = audioContext.createPeriodicWave(real, imag, { disableNormalization: false });
-  osc.setPeriodicWave(wave);
-  osc.frequency.value = frequency;
 
-  const now = audioContext.currentTime;
-  gain.gain.setValueAtTime(0.0001, now);
-  gain.gain.exponentialRampToValueAtTime(0.75, now + 0.03);
-  gain.gain.exponentialRampToValueAtTime(0.02, now + 0.45);
-  gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.9);
+  const voices = [
+    { freq: frequency, detune: 0, gain: 0.75 },
+    { freq: frequency, detune: -7, gain: 0.45 },
+    { freq: frequency * 2, detune: 4, gain: 0.13 }
+  ];
+  voices.forEach(v => {
+    const osc = audioContext.createOscillator();
+    osc.setPeriodicWave(wave);
+    osc.frequency.value = v.freq;
+    osc.detune.value = v.detune;
+    const g = audioContext.createGain();
+    g.gain.value = v.gain;
+    osc.connect(g);
+    g.connect(filter);
+    osc.start(now);
+    osc.stop(now + totalDur);
+  });
 
-  osc.connect(filter);
-  filter.connect(gain);
-  gain.connect(audioContext.destination);
+  const sampleCount = Math.floor(audioContext.sampleRate * 0.04);
+  const noiseBuf = audioContext.createBuffer(1, sampleCount, audioContext.sampleRate);
+  const noiseData = noiseBuf.getChannelData(0);
+  for (let i = 0; i < sampleCount; i++) {
+    noiseData[i] = (Math.random() * 2 - 1) * (1 - i / sampleCount);
+  }
+  const noise = audioContext.createBufferSource();
+  noise.buffer = noiseBuf;
+  const noiseFilter = audioContext.createBiquadFilter();
+  noiseFilter.type = 'bandpass';
+  noiseFilter.frequency.value = Math.min(8000, frequency * 4);
+  noiseFilter.Q.value = 1.8;
+  const noiseGain = audioContext.createGain();
+  noiseGain.gain.setValueAtTime(0.0001, now);
+  noiseGain.gain.exponentialRampToValueAtTime(0.18, now + 0.004);
+  noiseGain.gain.exponentialRampToValueAtTime(0.0001, now + 0.05);
+  noise.connect(noiseFilter);
+  noiseFilter.connect(noiseGain);
+  noiseGain.connect(master);
+  noise.start(now);
+  noise.stop(now + 0.06);
 
-  osc.start(now);
-  osc.stop(now + 1.1);
+  master.gain.setValueAtTime(0.0001, now);
+  master.gain.exponentialRampToValueAtTime(0.82, now + 0.006);
+  master.gain.exponentialRampToValueAtTime(0.38, now + 0.16);
+  master.gain.exponentialRampToValueAtTime(0.18, now + Math.max(0.3, sustainDur * 0.55));
+  master.gain.exponentialRampToValueAtTime(0.0001, now + totalDur);
 }
 
 document.addEventListener('DOMContentLoaded', init);
