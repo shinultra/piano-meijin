@@ -215,6 +215,13 @@ function buildKeyboard() {
     button.addEventListener('pointerdown', () => pressNote(key));
     keyboardPanel.appendChild(button);
   });
+  // Decorative black keys (between C-D, D-E, F-G, G-A, A-B in C major)
+  [1, 2, 4, 5, 6].forEach(afterIndex => {
+    const black = document.createElement('span');
+    black.className = `black-key bk-${afterIndex}`;
+    black.setAttribute('aria-hidden', 'true');
+    keyboardPanel.appendChild(black);
+  });
 }
 
 function pressNote(key) {

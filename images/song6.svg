@@ -1,0 +1,152 @@
+<svg width="1200" height="800" viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="sky6" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1a2245"/>
+      <stop offset="50%" stop-color="#2a3a6e"/>
+      <stop offset="100%" stop-color="#4a5e92"/>
+    </linearGradient>
+    <radialGradient id="moonHalo6" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#e8f0ff" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#e8f0ff" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="snowground" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#e3eef9"/>
+      <stop offset="100%" stop-color="#a8b8cc"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="800" fill="url(#sky6)"/>
+
+  <!-- Moon -->
+  <circle cx="980" cy="180" r="180" fill="url(#moonHalo6)"/>
+  <circle cx="980" cy="180" r="68" fill="#f5f8ff"/>
+  <circle cx="970" cy="172" r="12" fill="#dfe5f0" opacity="0.5"/>
+  <circle cx="998" cy="190" r="8" fill="#dfe5f0" opacity="0.5"/>
+
+  <!-- Distant stars -->
+  <g fill="#ffffff">
+    <circle cx="80" cy="100" r="1.5"/>
+    <circle cx="170" cy="160" r="1.2"/>
+    <circle cx="240" cy="80" r="1.8"/>
+    <circle cx="340" cy="180" r="1"/>
+    <circle cx="430" cy="120" r="1.5"/>
+    <circle cx="540" cy="60" r="1.8"/>
+    <circle cx="640" cy="140" r="1.2"/>
+    <circle cx="760" cy="80" r="1.5"/>
+    <circle cx="1080" cy="60" r="1.2"/>
+    <circle cx="1150" cy="130" r="1.5"/>
+    <circle cx="60" cy="280" r="1.2"/>
+    <circle cx="180" cy="240" r="1.5"/>
+    <circle cx="380" cy="280" r="1.2"/>
+    <circle cx="450" cy="220" r="1"/>
+    <circle cx="640" cy="280" r="1.2"/>
+    <circle cx="800" cy="240" r="1.5"/>
+    <circle cx="1180" cy="280" r="1.2"/>
+  </g>
+
+  <!-- Falling snow -->
+  <g fill="#ffffff" opacity="0.85">
+    <circle cx="100" cy="200" r="3.5"/>
+    <circle cx="260" cy="320" r="3"/>
+    <circle cx="380" cy="240" r="3.5"/>
+    <circle cx="500" cy="380" r="3"/>
+    <circle cx="640" cy="220" r="3.5"/>
+    <circle cx="760" cy="340" r="3"/>
+    <circle cx="860" cy="260" r="3.5"/>
+    <circle cx="1100" cy="320" r="3"/>
+    <circle cx="150" cy="420" r="3"/>
+    <circle cx="290" cy="480" r="3.5"/>
+    <circle cx="420" cy="440" r="2.5"/>
+    <circle cx="570" cy="500" r="3"/>
+    <circle cx="700" cy="460" r="3.5"/>
+    <circle cx="840" cy="500" r="3"/>
+    <circle cx="980" cy="440" r="2.5"/>
+    <circle cx="1140" cy="480" r="3"/>
+    <circle cx="50" cy="560" r="3"/>
+    <circle cx="220" cy="600" r="3.5"/>
+    <circle cx="360" cy="560" r="2.5"/>
+    <circle cx="540" cy="610" r="3"/>
+    <circle cx="680" cy="570" r="3"/>
+    <circle cx="820" cy="610" r="3.5"/>
+    <circle cx="960" cy="580" r="2.5"/>
+    <circle cx="1080" cy="620" r="3"/>
+  </g>
+
+  <!-- Distant mountains (snow-capped) -->
+  <path d="M0 550 L160 430 L320 530 L460 420 L600 510 L740 430 L880 510 L1020 440 L1160 500 L1200 480 L1200 620 L0 620 Z" fill="#3a4a72" opacity="0.85"/>
+  <!-- Snow caps -->
+  <g fill="#ffffff" opacity="0.9">
+    <path d="M150 440 L160 430 L170 440 L180 460 L160 458 L140 460 Z"/>
+    <path d="M450 430 L460 420 L470 430 L478 450 L460 448 L444 450 Z"/>
+    <path d="M730 440 L740 430 L750 440 L758 460 L740 458 L724 460 Z"/>
+    <path d="M1010 450 L1020 440 L1030 450 L1038 470 L1020 468 L1006 470 Z"/>
+  </g>
+
+  <!-- Pine trees with snow -->
+  <g>
+    <!-- Tree 1 (left) -->
+    <g transform="translate(180 620)">
+      <rect x="-8" y="0" width="16" height="40" fill="#3a2418"/>
+      <polygon points="-50,0 50,0 0,-90" fill="#1f4a2a"/>
+      <polygon points="-45,-50 45,-50 0,-130" fill="#1f4a2a"/>
+      <polygon points="-40,-100 40,-100 0,-170" fill="#1f4a2a"/>
+      <!-- Snow on tree -->
+      <polygon points="-50,0 -42,-8 -34,-2 -26,-6 -18,0 -10,-4 -2,0 6,-4 14,0 22,-4 30,-2 38,-6 50,0" fill="#ffffff"/>
+      <polygon points="-45,-50 -38,-58 -30,-52 -22,-56 -14,-50 -6,-54 2,-50 10,-54 18,-50 26,-54 34,-52 42,-56 45,-50" fill="#ffffff" opacity="0.95"/>
+      <polygon points="-40,-100 -32,-108 -24,-102 -16,-106 -8,-100 0,-104 8,-100 16,-104 24,-102 32,-106 40,-100" fill="#ffffff" opacity="0.95"/>
+      <polygon points="-6,-170 0,-176 6,-170 4,-165 -4,-165" fill="#ffffff"/>
+    </g>
+
+    <!-- Tree 2 (mid-left, smaller) -->
+    <g transform="translate(360 640) scale(0.75)">
+      <rect x="-8" y="0" width="16" height="40" fill="#3a2418"/>
+      <polygon points="-50,0 50,0 0,-90" fill="#1f4a2a"/>
+      <polygon points="-45,-50 45,-50 0,-130" fill="#1f4a2a"/>
+      <polygon points="-40,-100 40,-100 0,-170" fill="#1f4a2a"/>
+      <polygon points="-50,0 -42,-8 -34,-2 -26,-6 -18,0 -10,-4 -2,0 6,-4 14,0 22,-4 30,-2 38,-6 50,0" fill="#ffffff"/>
+      <polygon points="-45,-50 -38,-58 -30,-52 -22,-56 -14,-50 -6,-54 2,-50 10,-54 18,-50 26,-54 34,-52 42,-56 45,-50" fill="#ffffff"/>
+      <polygon points="-40,-100 -32,-108 -24,-102 -16,-106 -8,-100 0,-104 8,-100 16,-104 24,-102 32,-106 40,-100" fill="#ffffff"/>
+    </g>
+
+    <!-- Tree 3 (right, taller) -->
+    <g transform="translate(900 620) scale(1.1)">
+      <rect x="-8" y="0" width="16" height="40" fill="#3a2418"/>
+      <polygon points="-50,0 50,0 0,-90" fill="#1f4a2a"/>
+      <polygon points="-45,-50 45,-50 0,-130" fill="#1f4a2a"/>
+      <polygon points="-40,-100 40,-100 0,-170" fill="#1f4a2a"/>
+      <polygon points="-50,0 -42,-8 -34,-2 -26,-6 -18,0 -10,-4 -2,0 6,-4 14,0 22,-4 30,-2 38,-6 50,0" fill="#ffffff"/>
+      <polygon points="-45,-50 -38,-58 -30,-52 -22,-56 -14,-50 -6,-54 2,-50 10,-54 18,-50 26,-54 34,-52 42,-56 45,-50" fill="#ffffff"/>
+      <polygon points="-40,-100 -32,-108 -24,-102 -16,-106 -8,-100 0,-104 8,-100 16,-104 24,-102 32,-106 40,-100" fill="#ffffff"/>
+      <polygon points="-6,-170 0,-176 6,-170 4,-165 -4,-165" fill="#ffffff"/>
+    </g>
+
+    <!-- Tree 4 (far right, small) -->
+    <g transform="translate(1100 660) scale(0.6)">
+      <rect x="-8" y="0" width="16" height="40" fill="#3a2418"/>
+      <polygon points="-50,0 50,0 0,-90" fill="#1f4a2a"/>
+      <polygon points="-45,-50 45,-50 0,-130" fill="#1f4a2a"/>
+      <polygon points="-50,0 -42,-8 -34,-2 -26,-6 -18,0 -10,-4 -2,0 6,-4 14,0 22,-4 30,-2 38,-6 50,0" fill="#ffffff"/>
+      <polygon points="-45,-50 -38,-58 -30,-52 -22,-56 -14,-50 -6,-54 2,-50 10,-54 18,-50 26,-54 34,-52 42,-56 45,-50" fill="#ffffff"/>
+    </g>
+  </g>
+
+  <!-- Snow ground -->
+  <path d="M0 640 Q300 620 600 640 Q900 660 1200 630 L1200 800 L0 800 Z" fill="url(#snowground)"/>
+  <!-- Snow drift highlight -->
+  <path d="M0 720 Q400 700 800 720 Q1000 730 1200 705 L1200 800 L0 800 Z" fill="#f0f5ff" opacity="0.5"/>
+
+  <!-- Small jingle bell on tree (left) -->
+  <g transform="translate(180 540)">
+    <circle cx="0" cy="0" r="14" fill="#ffd166"/>
+    <circle cx="-3" cy="-3" r="5" fill="#fff5b0"/>
+    <path d="M-5 8 L5 8 L4 14 L-4 14 Z" fill="#c89a35"/>
+    <circle cx="0" cy="16" r="3" fill="#a8731a"/>
+  </g>
+  <!-- Bell on right tree -->
+  <g transform="translate(900 520)">
+    <circle cx="0" cy="0" r="16" fill="#ffd166"/>
+    <circle cx="-3" cy="-3" r="6" fill="#fff5b0"/>
+    <path d="M-6 9 L6 9 L5 16 L-5 16 Z" fill="#c89a35"/>
+    <circle cx="0" cy="18" r="3" fill="#a8731a"/>
+  </g>
+</svg>

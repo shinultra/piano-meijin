@@ -1,0 +1,149 @@
+<svg width="1200" height="800" viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="sky4" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#7ec6f0"/>
+      <stop offset="60%" stop-color="#cbe6f4"/>
+      <stop offset="100%" stop-color="#f6ecc8"/>
+    </linearGradient>
+    <linearGradient id="grass4" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#8dc77a"/>
+      <stop offset="100%" stop-color="#4a8a3f"/>
+    </linearGradient>
+    <radialGradient id="sun4" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#fff5b0" stop-opacity="0.85"/>
+      <stop offset="100%" stop-color="#fff5b0" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1200" height="800" fill="url(#sky4)"/>
+
+  <!-- Sun -->
+  <circle cx="210" cy="160" r="180" fill="url(#sun4)"/>
+  <circle cx="210" cy="160" r="62" fill="#fff5b0"/>
+
+  <!-- Clouds -->
+  <g fill="#ffffff" opacity="0.9">
+    <ellipse cx="500" cy="150" rx="60" ry="20"/>
+    <circle cx="475" cy="140" r="22"/>
+    <circle cx="510" cy="128" r="28"/>
+    <circle cx="545" cy="142" r="22"/>
+    <ellipse cx="900" cy="220" rx="55" ry="18"/>
+    <circle cx="880" cy="212" r="22"/>
+    <circle cx="920" cy="206" r="26"/>
+  </g>
+
+  <!-- Grass field -->
+  <rect x="0" y="560" width="1200" height="240" fill="url(#grass4)"/>
+
+  <!-- Distant grass blades -->
+  <g stroke="#3f7634" stroke-width="3" stroke-linecap="round" fill="none" opacity="0.75">
+    <path d="M60 740 L56 718 M64 740 L68 718"/>
+    <path d="M180 770 L176 748 M184 770 L188 748"/>
+    <path d="M340 730 L336 708 M344 730 L348 708"/>
+    <path d="M490 765 L486 743 M494 765 L498 743"/>
+    <path d="M680 735 L676 715 M684 735 L688 715"/>
+    <path d="M830 770 L826 748 M834 770 L838 748"/>
+    <path d="M980 725 L976 705 M984 725 L988 705"/>
+    <path d="M1120 760 L1116 740 M1124 760 L1128 740"/>
+  </g>
+
+  <!-- Flowers -->
+  <g>
+    <!-- Pink tulip cluster -->
+    <g transform="translate(120 700)">
+      <rect x="-2" y="0" width="4" height="30" fill="#3f7634"/>
+      <ellipse cx="0" cy="-4" rx="11" ry="14" fill="#ff7eb1"/>
+      <ellipse cx="0" cy="-7" rx="7" ry="6" fill="#ffb5d4"/>
+    </g>
+    <g transform="translate(150 720)">
+      <rect x="-2" y="0" width="4" height="22" fill="#3f7634"/>
+      <ellipse cx="0" cy="-3" rx="9" ry="11" fill="#ff9e5e"/>
+      <ellipse cx="0" cy="-6" rx="5" ry="5" fill="#ffc4a0"/>
+    </g>
+    <!-- Yellow flowers -->
+    <g transform="translate(320 740)">
+      <rect x="-2" y="0" width="4" height="26" fill="#3f7634"/>
+      <g fill="#ffe066"><circle cx="0" cy="-6" r="6"/><circle cx="-7" cy="-2" r="6"/><circle cx="7" cy="-2" r="6"/><circle cx="-4" cy="-10" r="6"/><circle cx="4" cy="-10" r="6"/></g>
+      <circle cx="0" cy="-4" r="4" fill="#ff9e3b"/>
+    </g>
+    <!-- Purple flower -->
+    <g transform="translate(560 750)">
+      <rect x="-2" y="0" width="4" height="30" fill="#3f7634"/>
+      <g fill="#b07ad6"><circle cx="0" cy="-6" r="6"/><circle cx="-7" cy="-2" r="6"/><circle cx="7" cy="-2" r="6"/><circle cx="-4" cy="-10" r="6"/><circle cx="4" cy="-10" r="6"/></g>
+      <circle cx="0" cy="-4" r="3.5" fill="#ffe066"/>
+    </g>
+    <!-- Red poppy -->
+    <g transform="translate(750 720)">
+      <rect x="-2" y="0" width="4" height="32" fill="#3f7634"/>
+      <g fill="#ee5a5a"><circle cx="0" cy="-6" r="7"/><circle cx="-8" cy="-2" r="7"/><circle cx="8" cy="-2" r="7"/><circle cx="-5" cy="-12" r="7"/><circle cx="5" cy="-12" r="7"/></g>
+      <circle cx="0" cy="-5" r="3.5" fill="#2a1818"/>
+    </g>
+    <!-- White daisy -->
+    <g transform="translate(940 740)">
+      <rect x="-2" y="0" width="4" height="26" fill="#3f7634"/>
+      <g fill="#ffffff"><circle cx="0" cy="-7" r="5"/><circle cx="-7" cy="-3" r="5"/><circle cx="7" cy="-3" r="5"/><circle cx="-4" cy="-11" r="5"/><circle cx="4" cy="-11" r="5"/></g>
+      <circle cx="0" cy="-5" r="3" fill="#ffe066"/>
+    </g>
+    <!-- Pink flower -->
+    <g transform="translate(1080 730)">
+      <rect x="-2" y="0" width="4" height="28" fill="#3f7634"/>
+      <g fill="#ff8eb1"><circle cx="0" cy="-6" r="6"/><circle cx="-7" cy="-2" r="6"/><circle cx="7" cy="-2" r="6"/><circle cx="-4" cy="-10" r="6"/><circle cx="4" cy="-10" r="6"/></g>
+      <circle cx="0" cy="-4" r="3.5" fill="#ffe066"/>
+    </g>
+  </g>
+
+  <!-- Butterflies -->
+  <g transform="translate(450 320) rotate(-12)">
+    <ellipse cx="-22" cy="-12" rx="26" ry="24" fill="#ffb070"/>
+    <ellipse cx="22" cy="-12" rx="26" ry="24" fill="#ffb070"/>
+    <ellipse cx="-18" cy="16" rx="20" ry="20" fill="#ff7a5a"/>
+    <ellipse cx="18" cy="16" rx="20" ry="20" fill="#ff7a5a"/>
+    <circle cx="-22" cy="-12" r="6" fill="#2a1818"/>
+    <circle cx="22" cy="-12" r="6" fill="#2a1818"/>
+    <circle cx="-18" cy="16" r="4" fill="#2a1818"/>
+    <circle cx="18" cy="16" r="4" fill="#2a1818"/>
+    <ellipse cx="0" cy="0" rx="4" ry="24" fill="#2a1818"/>
+    <path d="M-3 -22 Q-9 -32 -14 -36" stroke="#2a1818" stroke-width="2" fill="none" stroke-linecap="round"/>
+    <path d="M3 -22 Q9 -32 14 -36" stroke="#2a1818" stroke-width="2" fill="none" stroke-linecap="round"/>
+    <circle cx="-14" cy="-37" r="2.5" fill="#2a1818"/>
+    <circle cx="14" cy="-37" r="2.5" fill="#2a1818"/>
+  </g>
+
+  <g transform="translate(820 420) rotate(15) scale(0.85)">
+    <ellipse cx="-22" cy="-12" rx="26" ry="24" fill="#9dd2f3"/>
+    <ellipse cx="22" cy="-12" rx="26" ry="24" fill="#9dd2f3"/>
+    <ellipse cx="-18" cy="16" rx="20" ry="20" fill="#5fa4dc"/>
+    <ellipse cx="18" cy="16" rx="20" ry="20" fill="#5fa4dc"/>
+    <circle cx="-22" cy="-12" r="6" fill="#ffffff"/>
+    <circle cx="22" cy="-12" r="6" fill="#ffffff"/>
+    <circle cx="-18" cy="16" r="4" fill="#ffffff"/>
+    <circle cx="18" cy="16" r="4" fill="#ffffff"/>
+    <ellipse cx="0" cy="0" rx="4" ry="24" fill="#2a1838"/>
+    <path d="M-3 -22 Q-9 -32 -14 -36" stroke="#2a1838" stroke-width="2" fill="none" stroke-linecap="round"/>
+    <path d="M3 -22 Q9 -32 14 -36" stroke="#2a1838" stroke-width="2" fill="none" stroke-linecap="round"/>
+    <circle cx="-14" cy="-37" r="2.5" fill="#2a1838"/>
+    <circle cx="14" cy="-37" r="2.5" fill="#2a1838"/>
+  </g>
+
+  <g transform="translate(620 200) rotate(-5) scale(0.7)">
+    <ellipse cx="-22" cy="-12" rx="26" ry="24" fill="#ffd6f0"/>
+    <ellipse cx="22" cy="-12" rx="26" ry="24" fill="#ffd6f0"/>
+    <ellipse cx="-18" cy="16" rx="20" ry="20" fill="#ff7eb1"/>
+    <ellipse cx="18" cy="16" rx="20" ry="20" fill="#ff7eb1"/>
+    <circle cx="-22" cy="-12" r="6" fill="#a04075"/>
+    <circle cx="22" cy="-12" r="6" fill="#a04075"/>
+    <ellipse cx="0" cy="0" rx="4" ry="24" fill="#2a1818"/>
+    <path d="M-3 -22 Q-9 -32 -14 -36" stroke="#2a1818" stroke-width="2" fill="none" stroke-linecap="round"/>
+    <path d="M3 -22 Q9 -32 14 -36" stroke="#2a1818" stroke-width="2" fill="none" stroke-linecap="round"/>
+  </g>
+
+  <g transform="translate(1020 280) rotate(20) scale(0.65)">
+    <ellipse cx="-22" cy="-12" rx="26" ry="24" fill="#ffe066"/>
+    <ellipse cx="22" cy="-12" rx="26" ry="24" fill="#ffe066"/>
+    <ellipse cx="-18" cy="16" rx="20" ry="20" fill="#ff9e3b"/>
+    <ellipse cx="18" cy="16" rx="20" ry="20" fill="#ff9e3b"/>
+    <circle cx="-22" cy="-12" r="6" fill="#a04015"/>
+    <circle cx="22" cy="-12" r="6" fill="#a04015"/>
+    <ellipse cx="0" cy="0" rx="4" ry="24" fill="#2a1818"/>
+  </g>
+</svg>

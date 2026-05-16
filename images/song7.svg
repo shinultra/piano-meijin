@@ -1,0 +1,149 @@
+<svg width="1200" height="800" viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="bg7" cx="50%" cy="40%" r="70%">
+      <stop offset="0%" stop-color="#fff4d2"/>
+      <stop offset="60%" stop-color="#e8b97a"/>
+      <stop offset="100%" stop-color="#7a4d28"/>
+    </radialGradient>
+    <radialGradient id="spotGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#fff7c0" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#fff7c0" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="stagefloor" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#3a2418"/>
+      <stop offset="100%" stop-color="#1a0e08"/>
+    </linearGradient>
+    <linearGradient id="curtain" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#6e1a26"/>
+      <stop offset="100%" stop-color="#3a0c14"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Warm radial background -->
+  <rect width="1200" height="800" fill="url(#bg7)"/>
+
+  <!-- Concert spotlight glow -->
+  <ellipse cx="600" cy="320" rx="500" ry="380" fill="url(#spotGlow)"/>
+
+  <!-- Side curtains -->
+  <path d="M0 0 L240 0 Q230 120 220 240 Q210 360 200 480 Q190 600 180 720 L180 800 L0 800 Z" fill="url(#curtain)" opacity="0.85"/>
+  <path d="M1200 0 L960 0 Q970 120 980 240 Q990 360 1000 480 Q1010 600 1020 720 L1020 800 L1200 800 Z" fill="url(#curtain)" opacity="0.85"/>
+  <!-- Curtain folds -->
+  <g stroke="#3a0c14" stroke-width="3" fill="none" opacity="0.5">
+    <path d="M40 0 Q35 200 30 400 Q25 600 20 800"/>
+    <path d="M90 0 Q85 200 80 400 Q75 600 70 800"/>
+    <path d="M140 0 Q135 200 130 400 Q125 600 120 800"/>
+    <path d="M1160 0 Q1165 200 1170 400 Q1175 600 1180 800"/>
+    <path d="M1110 0 Q1115 200 1120 400 Q1125 600 1130 800"/>
+    <path d="M1060 0 Q1065 200 1070 400 Q1075 600 1080 800"/>
+  </g>
+  <!-- Curtain ties -->
+  <g fill="#ffd166">
+    <ellipse cx="200" cy="380" rx="32" ry="14"/>
+    <path d="M180 388 L200 420 L220 388 Z" fill="#c89a35"/>
+    <ellipse cx="1000" cy="380" rx="32" ry="14"/>
+    <path d="M980 388 L1000 420 L1020 388 Z" fill="#c89a35"/>
+  </g>
+
+  <!-- Stage floor with reflection -->
+  <rect x="180" y="620" width="840" height="180" fill="url(#stagefloor)"/>
+  <g stroke="#5a3a24" stroke-width="2" fill="none" opacity="0.7">
+    <path d="M180 660 Q600 656 1020 660"/>
+    <path d="M180 700 Q600 696 1020 700"/>
+    <path d="M180 740 Q600 736 1020 740"/>
+  </g>
+
+  <!-- Music staff lines (across upper area) -->
+  <g stroke="#5a3818" stroke-width="2" opacity="0.4">
+    <line x1="280" y1="240" x2="920" y2="240"/>
+    <line x1="280" y1="270" x2="920" y2="270"/>
+    <line x1="280" y1="300" x2="920" y2="300"/>
+    <line x1="280" y1="330" x2="920" y2="330"/>
+    <line x1="280" y1="360" x2="920" y2="360"/>
+  </g>
+
+  <!-- Treble clef (simplified) on staff -->
+  <g transform="translate(310 300)" fill="#5a3818" opacity="0.85">
+    <path d="M0 -70 C 18 -60 18 -40 0 -20 C -18 0 -18 30 0 50 C 14 60 22 50 22 35 C 22 22 12 15 0 18 C -10 22 -14 32 -4 38" stroke="#5a3818" stroke-width="6" fill="none" stroke-linecap="round"/>
+    <circle cx="0" cy="55" r="6"/>
+  </g>
+
+  <!-- Music notes floating -->
+  <g fill="#5a3818">
+    <!-- Quarter note 1 -->
+    <g transform="translate(440 250)">
+      <ellipse cx="0" cy="0" rx="14" ry="10" transform="rotate(-18)"/>
+      <rect x="11" y="-50" width="3.5" height="48"/>
+    </g>
+    <!-- Quarter note 2 -->
+    <g transform="translate(530 290)">
+      <ellipse cx="0" cy="0" rx="14" ry="10" transform="rotate(-18)"/>
+      <rect x="11" y="-50" width="3.5" height="48"/>
+    </g>
+    <!-- Eighth note pair -->
+    <g transform="translate(620 280)">
+      <ellipse cx="0" cy="0" rx="14" ry="10" transform="rotate(-18)"/>
+      <ellipse cx="40" cy="0" rx="14" ry="10" transform="rotate(-18)"/>
+      <rect x="11" y="-50" width="3.5" height="48"/>
+      <rect x="51" y="-50" width="3.5" height="48"/>
+      <path d="M14 -50 L57 -45 L57 -38 L14 -43 Z"/>
+    </g>
+    <!-- Quarter note 3 -->
+    <g transform="translate(740 260)">
+      <ellipse cx="0" cy="0" rx="14" ry="10" transform="rotate(-18)"/>
+      <rect x="11" y="-50" width="3.5" height="48"/>
+    </g>
+    <!-- Quarter note 4 -->
+    <g transform="translate(820 290)">
+      <ellipse cx="0" cy="0" rx="14" ry="10" transform="rotate(-18)"/>
+      <rect x="11" y="-50" width="3.5" height="48"/>
+    </g>
+  </g>
+
+  <!-- Floating bonus notes (decorative) -->
+  <g fill="#ffd166" opacity="0.85">
+    <g transform="translate(360 480)">
+      <ellipse cx="0" cy="0" rx="11" ry="8" transform="rotate(-18)"/>
+      <rect x="9" y="-40" width="3" height="38"/>
+      <path d="M12 -40 Q26 -36 26 -22"/>
+    </g>
+    <g transform="translate(840 510)">
+      <ellipse cx="0" cy="0" rx="11" ry="8" transform="rotate(-18)"/>
+      <rect x="9" y="-40" width="3" height="38"/>
+      <path d="M12 -40 Q26 -36 26 -22"/>
+    </g>
+    <g transform="translate(490 540)">
+      <ellipse cx="0" cy="0" rx="9" ry="7" transform="rotate(-18)"/>
+      <rect x="7" y="-32" width="3" height="32"/>
+    </g>
+    <g transform="translate(720 560)">
+      <ellipse cx="0" cy="0" rx="9" ry="7" transform="rotate(-18)"/>
+      <rect x="7" y="-32" width="3" height="32"/>
+    </g>
+  </g>
+
+  <!-- Grand piano silhouette on stage -->
+  <g transform="translate(600 640)">
+    <!-- Body curve -->
+    <path d="M-180 0 Q-200 -30 -160 -50 L 130 -50 Q 180 -50 200 -20 Q 220 10 180 30 L -160 30 Q -200 30 -180 0 Z" fill="#0a0608"/>
+    <!-- Top reflection -->
+    <path d="M-160 -45 Q-150 -42 -140 -45 L 130 -45 Q 150 -45 160 -42" stroke="#5a3a24" stroke-width="2" fill="none" opacity="0.6"/>
+    <!-- Keys hint -->
+    <rect x="-150" y="-10" width="280" height="10" fill="#f0eee5"/>
+    <g fill="#1a1a1a">
+      <rect x="-140" y="-10" width="3" height="6"/>
+      <rect x="-115" y="-10" width="3" height="6"/>
+      <rect x="-80" y="-10" width="3" height="6"/>
+      <rect x="-55" y="-10" width="3" height="6"/>
+      <rect x="-30" y="-10" width="3" height="6"/>
+      <rect x="5" y="-10" width="3" height="6"/>
+      <rect x="30" y="-10" width="3" height="6"/>
+      <rect x="65" y="-10" width="3" height="6"/>
+      <rect x="90" y="-10" width="3" height="6"/>
+    </g>
+    <!-- Piano legs -->
+    <rect x="-160" y="30" width="14" height="40" fill="#0a0608"/>
+    <rect x="140" y="30" width="14" height="40" fill="#0a0608"/>
+    <rect x="-10" y="30" width="14" height="40" fill="#0a0608"/>
+  </g>
+</svg>
